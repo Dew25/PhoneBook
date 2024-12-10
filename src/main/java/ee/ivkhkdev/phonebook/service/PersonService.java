@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonService implements AppService{
+public class PersonService implements AppService<Person>{
 
     @Autowired
     private AppHelper<Person> personHelper;
@@ -40,9 +40,10 @@ public class PersonService implements AppService{
 
     @Override
     public void printOne() {
-        Optional<Person> optionalPerson = findByFirstnameAndLastname();
-        if(optionalPerson.isPresent()){
-            personHelper.print(optionalPerson.get());
+
+        List<Person> persons = this.findByFirstnameAndLastname();
+        if(!persons.isEmpty()){
+            personHelper.printList(persons);
         }
     }
 
@@ -51,10 +52,12 @@ public class PersonService implements AppService{
         return false;
     }
 
-    @Override
-    public Optional<Person> findByFirstnameAndLastname() {
+
+    private List<Person> findByFirstnameAndLastname() {
         List<String> firstnameAndLastname = personHelper.findPersonNames();
-        List<Person> listPersons = personRepository.findByFirstnameAndLastname(firstnameAndLastname.get(0),firstnameAndLastname.get(1));
-        return Optional.of(listPersons.get(0));
+        return personRepository.findByFirstnameAndLastname(
+                firstnameAndLastname.get(0),
+                firstnameAndLastname.get(1)
+        );
     }
 }

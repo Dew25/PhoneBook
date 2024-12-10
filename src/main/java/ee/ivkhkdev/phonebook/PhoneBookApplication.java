@@ -26,7 +26,7 @@ public class PhoneBookApplication implements CommandLineRunner {
 			System.out.println("1. Добавить contact");
 			System.out.println("2. Список контактов");
 			System.out.println("3. Контакт по имени и фамилии");
-			System.out.println("Введите номер задачи: ");
+			System.out.print("Введите номер задачи: ");
 			int task = input.nextInt();
 			switch (task){
 				case 0:

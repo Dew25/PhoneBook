@@ -52,7 +52,7 @@ public class Person {
     }
 
     public void setLastname(String lastname) {
-        lastname = lastname;
+        this.lastname = lastname;
     }
 
     @Override

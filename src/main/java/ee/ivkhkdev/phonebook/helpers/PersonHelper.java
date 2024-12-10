@@ -15,14 +15,14 @@ public class PersonHelper implements AppHelper<Person> {
     @Autowired
     private Input input;
     @Override
-    public Optional create() {
+    public Optional<Person> create() {
         try {
             Person person = new Person();
-            System.out.println("Имя: ");
+            System.out.print("Имя: ");
             person.setFirstname(input.nextLine());
-            System.out.println("Фамилия: ");
+            System.out.print("Фамилия: ");
             person.setLastname(input.nextLine());
-            System.out.println("Телефон: ");
+            System.out.print("Телефон: ");
             person.setPhoneNumber(input.nextLine());
             return Optional.of(person);
         }catch (Exception e){
@@ -43,6 +43,12 @@ public class PersonHelper implements AppHelper<Person> {
 
     @Override
     public boolean print(Person person) {
+        System.out.printf("%d. %s %s. %s%n",
+                person.getId(),
+                person.getFirstname(),
+                person.getLastname(),
+                person.getPhoneNumber()
+        );
         return false;
     }
 

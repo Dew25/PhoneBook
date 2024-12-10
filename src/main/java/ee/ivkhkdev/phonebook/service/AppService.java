@@ -8,5 +8,5 @@ public interface AppService<T> {
     void printAll();
     void printOne();
     boolean delete();
-    T findByFirstnameAndLastname();
+    //T findByFirstnameAndLastname();
 }
