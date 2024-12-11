@@ -26,7 +26,7 @@ class PersonServiceTest {
     private PersonRepository personRepository;
 
     @InjectMocks
-    private PersonService personService;
+    private PersonServiceImpl personService;
 
     @BeforeEach
     void setUp() {

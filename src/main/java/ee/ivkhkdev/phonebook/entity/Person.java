@@ -6,21 +6,23 @@ import java.util.Objects;
 
 @Entity
 public class Person {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstname;
     private String lastname;
     @Column(unique = true)
     private String phoneNumber;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Address address;
 
     public Person() {
     }
 
-    public Person(String firstname, String lastname, String phoneNumber) {
+    public Person(String firstname, String lastname, String phoneNumber, Address address) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public Long getId() {
@@ -53,6 +55,14 @@ public class Person {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

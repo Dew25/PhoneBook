@@ -1,5 +1,6 @@
 package ee.ivkhkdev.phonebook.helpers;
 
+import ee.ivkhkdev.phonebook.entity.Address;
 import ee.ivkhkdev.phonebook.entity.Person;
 import ee.ivkhkdev.phonebook.input.Input;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ class PersonHelperTest {
     private Input input;
 
     @InjectMocks
-    private PersonHelper personHelper;
+    private PersonHelperImpl personHelper;
 
     @BeforeEach
     void setUp() {
@@ -76,8 +77,8 @@ class PersonHelperTest {
     void printList_shouldPrintPersonListSuccessfully() {
         // Arrange
         List<Person> persons = new ArrayList<>();
-        Person person1 = new Person("John", "Doe", "123456789");
-        Person person2 = new Person("Jane", "Smith", "987654321");
+        Person person1 = new Person("John", "Doe", "123456789",new Address());
+        Person person2 = new Person("Jane", "Smith", "987654321",new Address());
         persons.add(person1);
         persons.add(person2);
 

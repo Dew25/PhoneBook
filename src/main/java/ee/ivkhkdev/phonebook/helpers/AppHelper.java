@@ -9,5 +9,5 @@ public interface AppHelper<T> {
     Long remove(List<T> ts);
     boolean print(T t);
     boolean printList(List<T> ts);
-    List<String> findPersonNames();
+
 }

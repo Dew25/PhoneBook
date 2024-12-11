@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
+    //query = "SELECT * FROM person WHERE `firstname` = :firstname AND `lastname` = :lastname";
     List<Person> findByFirstnameAndLastname(String firstname, String lastname);
 }

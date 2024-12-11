@@ -6,7 +6,7 @@ public interface AppService<T> {
     boolean add();
     boolean edit();
     void printAll();
-    void printOne();
+    void printById();
     boolean delete();
     //T findByFirstnameAndLastname();
 }
