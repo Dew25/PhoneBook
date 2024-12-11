@@ -1,6 +1,7 @@
 package ee.ivkhkdev.phonebook;
 
 import ee.ivkhkdev.phonebook.input.Input;
+import ee.ivkhkdev.phonebook.service.AddressService;
 import ee.ivkhkdev.phonebook.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,8 @@ public class PhoneBookApplication implements CommandLineRunner {
 	private Input input;
 	@Autowired
 	private PersonServiceImpl personService;
+	@Autowired
+	private AddressService addressService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PhoneBookApplication.class, args);
@@ -50,6 +53,9 @@ public class PhoneBookApplication implements CommandLineRunner {
 					break;
 				case 4:
 					personService.printById();
+					break;
+				case 5:
+					addressService.add();
 					break;
 				default:
 					System.out.println("Выберите номер из списка!");

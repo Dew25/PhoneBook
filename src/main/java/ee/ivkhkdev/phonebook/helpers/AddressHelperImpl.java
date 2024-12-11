@@ -63,4 +63,11 @@ public class AddressHelperImpl implements AddressHelper{
         }
         return true;
     }
+
+    @Override
+    public Long getAdderssId(List<Address> addresses) {
+        this.printList(addresses);
+        System.out.print("Выберите номер адреса или ноль: ");
+        return (long) input.nextInt();
+    }
 }

@@ -5,6 +5,8 @@ import ee.ivkhkdev.phonebook.entity.Person;
 import ee.ivkhkdev.phonebook.input.Input;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.FilterOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,8 @@ import java.util.Optional;
 public class PersonHelperImpl implements PersonHelper {
     @Autowired
     private Input input;
+    @Autowired
+    private AddressHelper addressHelperImpl;
 
     @Override
     public Optional<Person> create() {
@@ -24,11 +28,6 @@ public class PersonHelperImpl implements PersonHelper {
             person.setLastname(input.nextLine());
             System.out.print("Телефон: ");
             person.setPhoneNumber(input.nextLine());
-            Optional<Address>optionalAddress = this.getAddress();
-            if(optionalAddress.isEmpty()){
-                return Optional.empty();
-            }
-            person.setAddress(optionalAddress.get());
             return Optional.of(person);
         }catch (Exception e){
             return Optional.empty();
@@ -36,12 +35,8 @@ public class PersonHelperImpl implements PersonHelper {
 
     }
 
-    private Optional<Address> getAddress(List<Address> addresses) {
-        Optional<Address>
-    }
-
     @Override
-    public Optional update(List<Person> persons) {
+    public Optional<Person> update(List<Person> persons) {
         return Optional.empty();
     }
 
@@ -89,9 +84,9 @@ public class PersonHelperImpl implements PersonHelper {
     }
 
     @Override
-    public Long findPesonId(List<Person> pesrons) {
+    public Long findPersonId(List<Person> pesrons) {
         this.printList(pesrons);
-        System.out.print("Выберите номер контакта: ");
+        System.out.print("Выберите номер контакта или ноль: ");
         return (long) input.nextInt();
     }
 }

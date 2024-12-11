@@ -12,7 +12,7 @@ public class Person {
     private String lastname;
     @Column(unique = true)
     private String phoneNumber;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Address address;
 
     public Person() {

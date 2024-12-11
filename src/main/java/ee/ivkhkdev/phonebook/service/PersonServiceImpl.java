@@ -1,7 +1,10 @@
 package ee.ivkhkdev.phonebook.service;
 
+import ee.ivkhkdev.phonebook.entity.Address;
 import ee.ivkhkdev.phonebook.entity.Person;
+import ee.ivkhkdev.phonebook.helpers.AddressHelper;
 import ee.ivkhkdev.phonebook.helpers.PersonHelper;
+import ee.ivkhkdev.phonebook.repository.AddressRepository;
 import ee.ivkhkdev.phonebook.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +18,30 @@ public class PersonServiceImpl implements PersonService{
     private PersonHelper personHelper;
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private AddressHelper addressHelper;
+
 
     @Override
     public boolean add() {
         Optional<Person> optionalPerson = personHelper.create();
-        if(optionalPerson.isPresent()){
-            personRepository.save(optionalPerson.get());
-            return true;
+        if(optionalPerson.isEmpty()) {
+            return false;
         }
-        return false;
+        Person person = optionalPerson.get();
+        Long addressId = addressHelper.getAdderssId(addressRepository.findAll());
+        if(addressId == 0L){
+            return false;
+        }
+        Optional<Address> optionalAddress = addressRepository.findById(addressId);
+        if(optionalAddress.isEmpty()){
+            return false;
+        }
+        person.setAddress(optionalAddress.get());
+        personRepository.save(person);
+        return true;
     }
 
     @Override
@@ -65,7 +83,7 @@ public class PersonServiceImpl implements PersonService{
         );
     }
     private Optional<Person> findById(){
-        Long personId = personHelper.findPesonId(personRepository.findAll());
+        Long personId = personHelper.findPersonId(personRepository.findAll());
         return personRepository.findById(personId);
     }
 }
