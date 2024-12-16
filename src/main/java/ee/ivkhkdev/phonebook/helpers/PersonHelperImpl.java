@@ -24,20 +24,10 @@ public class PersonHelperImpl implements PersonHelper {
             person.setLastname(input.nextLine());
             System.out.print("Телефон: ");
             person.setPhoneNumber(input.nextLine());
-            Optional<Address>optionalAddress = this.getAddress();
-            if(optionalAddress.isEmpty()){
-                return Optional.empty();
-            }
-            person.setAddress(optionalAddress.get());
             return Optional.of(person);
         }catch (Exception e){
             return Optional.empty();
         }
-
-    }
-
-    private Optional<Address> getAddress(List<Address> addresses) {
-        Optional<Address>
     }
 
     @Override

@@ -1,7 +1,10 @@
 package ee.ivkhkdev.phonebook.service;
 
+import ee.ivkhkdev.phonebook.entity.Address;
 import ee.ivkhkdev.phonebook.entity.Person;
+import ee.ivkhkdev.phonebook.helpers.AddressHelperImpl;
 import ee.ivkhkdev.phonebook.helpers.PersonHelper;
+import ee.ivkhkdev.phonebook.repository.AddressRepository;
 import ee.ivkhkdev.phonebook.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +18,29 @@ public class PersonServiceImpl implements PersonService{
     private PersonHelper personHelper;
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private AddressHelperImpl addressHelperImpl;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
     public boolean add() {
-        Optional<Person> optionalPerson = personHelper.create();
-        if(optionalPerson.isPresent()){
-            personRepository.save(optionalPerson.get());
-            return true;
+        Optional<Person> optionalPerson = personHelper.create();//без адреса
+        if(optionalPerson.isEmpty()){
+            return false;
         }
-        return false;
+        Person person = optionalPerson.get();//без адреса
+        try {
+            Long addressId = addressHelperImpl.getAddressId(addressRepository.findAll());
+            if(addressId == 0) return false;
+            Optional<Address> optionalAddress = addressRepository.findById(addressId);
+            if(optionalAddress.isEmpty()) return false;
+            person.setAddress(optionalAddress.get());// с адресом
+            personRepository.save(person);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     @Override

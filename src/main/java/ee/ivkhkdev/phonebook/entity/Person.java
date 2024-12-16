@@ -12,7 +12,7 @@ public class Person {
     private String lastname;
     @Column(unique = true)
     private String phoneNumber;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Address address;
 
     public Person() {
@@ -88,8 +88,9 @@ public class Person {
         final StringBuilder sb = new StringBuilder("Person{");
         sb.append("id=").append(id);
         sb.append(", firstname='").append(firstname).append('\'');
-        sb.append(", Lastname='").append(lastname).append('\'');
+        sb.append(", lastname='").append(lastname).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
+        sb.append(", address=").append(address);
         sb.append('}');
         return sb.toString();
     }
