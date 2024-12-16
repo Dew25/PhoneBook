@@ -1,5 +1,6 @@
 package ee.ivkhkdev.phonebook.service;
 
+import ee.ivkhkdev.phonebook.entity.Address;
 import ee.ivkhkdev.phonebook.entity.Person;
 import ee.ivkhkdev.phonebook.helpers.AppHelper;
 import ee.ivkhkdev.phonebook.repository.PersonRepository;
@@ -36,7 +37,7 @@ class PersonServiceTest {
     @Test
     void add_shouldAddPersonSuccessfully() {
         // Arrange
-        Person person = new Person("John", "Doe", "123456789");
+        Person person = new Person("John", "Doe", "123456789",new Address());
         when(personHelper.create()).thenReturn(Optional.of(person));
 
         // Act
@@ -64,8 +65,8 @@ class PersonServiceTest {
     void printAll_shouldPrintAllPersonsSuccessfully() {
         // Arrange
         List<Person> persons = List.of(
-                new Person("John", "Doe", "123456789"),
-                new Person("Jane", "Smith", "987654321")
+                new Person("John", "Doe", "123456789",new Address()),
+                new Person("Jane", "Smith", "987654321",new Address())
         );
         when(personRepository.findAll()).thenReturn(persons);
 
@@ -80,7 +81,7 @@ class PersonServiceTest {
     void printOne_shouldPrintPersonSuccessfully() {
         // Arrange
         List<String> names = List.of("John", "Doe");
-        List<Person> persons = List.of(new Person("John", "Doe", "123456789"));
+        List<Person> persons = List.of(new Person("John", "Doe", "123456789",new Address()));
 
         when(personHelper.findPersonNames()).thenReturn(names);
         when(personRepository.findByFirstnameAndLastname("John", "Doe")).thenReturn(persons);

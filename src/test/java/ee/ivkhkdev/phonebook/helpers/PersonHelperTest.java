@@ -104,7 +104,7 @@ class PersonHelperTest {
     @Test
     void findPersonNames_shouldReturnCorrectNames() {
         // Arrange
-        when(input.nextLine()).thenReturn("John", "Doe");
+        when(input.nextLine()).thenReturn("John", "Doe","123456");
 
         // Act
         List<String> result = personHelper.findPersonNames();

@@ -32,6 +32,7 @@ public class PhoneBookApplication implements CommandLineRunner {
 			System.out.println("3. Контакт по имени и фамилии");
 			System.out.println("4. Контакт по id");
 			System.out.println("5. Добавить адрес контакта");
+			System.out.println("6. Удалить контакт");
 			System.out.print("Введите номер задачи: ");
 			int task = input.nextInt();
 			switch (task){
@@ -56,6 +57,9 @@ public class PhoneBookApplication implements CommandLineRunner {
 					break;
 				case 5:
 					addressService.add();
+					break;
+				case 6:
+					personService.delete();
 					break;
 				default:
 					System.out.println("Выберите номер из списка!");

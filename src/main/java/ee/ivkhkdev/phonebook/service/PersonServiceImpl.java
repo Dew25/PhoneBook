@@ -7,6 +7,7 @@ import ee.ivkhkdev.phonebook.helpers.PersonHelper;
 import ee.ivkhkdev.phonebook.repository.AddressRepository;
 import ee.ivkhkdev.phonebook.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,10 @@ public class PersonServiceImpl implements PersonService{
     private AddressHelperImpl addressHelperImpl;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private DataSourceTransactionManagerAutoConfiguration dataSourceTransactionManagerAutoConfiguration;
 
     @Override
     public boolean add() {
@@ -71,7 +76,21 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public boolean delete() {
-        return false;
+        try {
+            Long personIdForDelete = personHelper.findPesonId(personRepository.findAll());
+            Optional<Person> optionalPerson = personRepository.findById(personIdForDelete);
+            if(optionalPerson.isEmpty()) return false;
+            personRepository.delete(optionalPerson.get());
+            try {
+                addressRepository.delete(optionalPerson.get().getAddress());
+            }catch (Exception e){
+                System.out.println("Удалена персона");
+            }
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
     }
 
     private List<Person> findByFirstnameAndLastname() {

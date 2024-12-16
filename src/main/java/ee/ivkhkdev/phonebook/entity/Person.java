@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
+/**
+ *
+ */
 @Entity
 public class Person {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +15,7 @@ public class Person {
     private String lastname;
     @Column(unique = true)
     private String phoneNumber;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Address address;
 
     public Person() {
